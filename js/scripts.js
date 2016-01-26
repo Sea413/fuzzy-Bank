@@ -4,6 +4,10 @@ function BankAccount(firstName, lastName, balance) {
   this.balance = balance;
 }
 
+BankAccount.prototype.fullName = function() {
+  return this.firstName + " " + this.lastName;
+}
+
 BankAccount.prototype.transaction = function(addedValue) {
   if (this.balance + addedValue < 0) {
     return false;
@@ -24,18 +28,29 @@ $(document).ready(function() {
 
 
   $("form.test").submit(function(event) {
+    var newAccount = {};
     event.preventDefault();
-
+    $("#chooseAccount").show();
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedInitialDeposit = parseFloat($("input#initialdeposit").val());
     if (Math.sign(inputtedInitialDeposit) === 1) {
-      var newAccount = new BankAccount(inputtedFirstName, inputtedLastName, inputtedInitialDeposit);
+      newAccount = new BankAccount(inputtedFirstName, inputtedLastName, inputtedInitialDeposit);
       console.log(newAccount);
       $("span#errormsg").hide();
+      $("ul#all-accounts").append("<li><span class='account'>" + newAccount.fullName() + "</span></li>");
     } else {
+      $("span#errormsg").show();
       $("span#errormsg").html("<h2>Please enter a positive number for your initial deposit</h2>");
     }
+
+    $(".account").last().click(function() {
+      $("#accountOptions").show();
+      $("h2#accountDisplay").text(newAccount.fullName());
+      console.log(newAccount);
+    });
+
+
     // $(".new-address").each(function() {
     //   var inputtedStreet = $(this).find("input.new-street").val();
     //   var inputtedCity = $(this).find("input.new-city").val();

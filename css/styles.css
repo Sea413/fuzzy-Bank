@@ -1,12 +1,12 @@
-/*#show-contact {
+.hideme {
   display: none;
 }
 
-.contact {
+.account {
   cursor: pointer;
   color: #0088cc;
 }
 
-.contact:hover {
+.account:hover {
   text-decoration: underline;
-}*/
+}

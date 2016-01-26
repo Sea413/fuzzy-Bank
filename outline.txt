@@ -4,3 +4,4 @@ Outline:
 3.) New screen will display two buttons one withdraw and one deposit. When selected a new modal will be generated where an inout and a submit button will occur. (Boot strap modal)
 4.) Second screen will have a third button deposit balance. Need to store existing balance within a varaible that is directly tied to the button.
 5.) Store all existing accounts on front page and implement encryption.
+6.) Store more than one account under the same name (object within object)

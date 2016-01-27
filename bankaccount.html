@@ -35,28 +35,31 @@
             <button type="submit" class="btn btn-primary">Make New Account</button>
           </form>
           <span id="errormsg"></span>
-
-          <div class="hideme" id="chooseAccount">
-            <h2>Choose an Account</h2>
-            <ul id="all-accounts">
-
-            </ul>
-          </div>
+          <span id="currentBalance"></span>
         </div><!-- END LEFT COLUMN -->
 
         <div class="col-md-4 hideme" id="accountOptions">
           <h2 id="accountDisplay"></h2>
-          <p>
-            <button id="depobutton" type="button" class="btn btn-primary btn-lg">Make A Deposit</button>
-          </p>
-          <p>
-            <button id="withbutton" type="button" class="btn btn-danger btn-lg">Make A Withdrawal</button>
-          </p>
-          <p>
-            <button id="accbutton" type="button" class="btn btn-success btn-lg">Check Account Balance</button>
-          </p>
+
+          <div id="transactionDisplay">
+            <form class="form-inline" id="transactionForm">
+              <div class="form-group">
+                <label for="transactionAmount">Amount</label>
+                <input type="text" id="transactionAmount">
+              </div>
+              <p>
+                <button id="depositSubmit" type="button" class="btn btn-primary btn-lg">Make A Deposit</button>
+              </p>
+              <p>
+                <button id="withdrawalSubmit" type="button" class="btn btn-danger btn-lg">Make A Withdrawal</button>
+              </p>
+              <p>
+                <button id="balanceSubmit" type="button" class="btn btn-success btn-lg">Check Account Balance</button>
+              </p>
+            </form>
 
 
+          </div>
         </div><!-- END RIGHT COLUMN -->
       </div><!-- END MAIN BODY row -->
     </div><!-- END MAIN BODY CONTAINER -->

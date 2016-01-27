@@ -18,61 +18,52 @@ BankAccount.prototype.transaction = function(addedValue) {
   }
 }
 
-// BankAccount.prototype.withdraw = function(addedValue) {
-//   this.balance -= addedValue;
-//   this.balance = parseFloat(this.balance.toPrecision(12));
-//   return this.balance;
-// }
+var clearFields = function() {
+  $("input#new-first-name").val("");
+  $("input#new-last-name").val("");
+  $("input#initialdeposit").val("");
+}
+
 
 $(document).ready(function() {
 
-
   $("form.test").submit(function(event) {
-    var newAccount = {};
     event.preventDefault();
     $("#chooseAccount").show();
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedInitialDeposit = parseFloat($("input#initialdeposit").val());
     if (Math.sign(inputtedInitialDeposit) === 1) {
-      newAccount = new BankAccount(inputtedFirstName, inputtedLastName, inputtedInitialDeposit);
-      console.log(newAccount);
+      var newAccount = new BankAccount(inputtedFirstName, inputtedLastName, inputtedInitialDeposit);
       $("span#errormsg").hide();
-      $("ul#all-accounts").append("<li><span class='account'>" + newAccount.fullName() + "</span></li>");
+      $("h2#accountDisplay").append("<span class='account'>" + newAccount.fullName() + "</span>");
+      $("#accountOptions").show();
+
     } else {
       $("span#errormsg").show();
       $("span#errormsg").html("<h2>Please enter a positive number for your initial deposit</h2>");
     }
 
-    $(".account").last().click(function() {
-      $("#accountOptions").show();
-      $("h2#accountDisplay").text(newAccount.fullName());
-      console.log(newAccount);
+    clearFields();
+    $("button#depositSubmit").click(function(event) {
+      var deposit = parseFloat($("input#transactionAmount").val());
+      newAccount.transaction(deposit);
+      console.log(newAccount.balance);
+      event.preventDefault();
     });
 
+    $("button#withdrawalSubmit").click(function(event) {
+      var withdrawal = parseFloat(-$("input#transactionAmount").val());
+      newAccount.transaction(withdrawal);
+      console.log(newAccount.balance);
+      event.preventDefault();
+    });
 
-    // $(".new-address").each(function() {
-    //   var inputtedStreet = $(this).find("input.new-street").val();
-    //   var inputtedCity = $(this).find("input.new-city").val();
-    //   var inputtedState = $(this).find("input.new-state").val();
-    //   var inputtedCategory = $(this).find("input.new-category").val();
-    //   var newAddress = new Address(inputtedStreet, inputtedCity, inputtedState, inputtedCategory);
-    //   newContact.addresses.push(newAddress);
-    // })
-    //
-    // $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
-    //
-    // $(".contact").last().click(function() {
-    //   $("#show-contact").show();
-    //   $("#show-contact h2").text(newContact.fullName());
-    //   $(".first-name").text(newContact.firstName);
-    //   $(".last-name").text(newContact.lastName);
-    //   $("ul#addresses").text('');
-    //   newContact.addresses.forEach(function(address) {
-    //     $("ul#addresses").append('<strong>' + address.category + ':</strong><li>' + address.fullAddress() +'</li>');
-    //   });
-    // });
-    // clearFields();
-    // $(".new-address").not(":first").remove();
+    $("button#balanceSubmit").click(function(event) {
+      $("span#currentBalance").html("<h2>Your current balance is: $" + newAccount.balance + "</h2>");
+      console.log(newAccount.balance);
+      event.preventDefault();
+    });
+
   });
-}); // END DOCUMENT READY
+});
